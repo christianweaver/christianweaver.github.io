@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2010s Cinema - Genre Analysis</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<div id="app">
+
+  <!-- Header -->
+  <header class="header">
+    <div class="header-left" tabindex="0">
+      <h1>2010s Cinema <span>Genre Analysis</span></h1>
+      <p>Explore movie releases by genre  throughout the year. Hover over a stream to view 
+        the top-grossing titles and click to reveal a scatterplot below of budget and revenue insights.</p>
+    </div>
+    <div class="controls" tabindex="2">
+      <label for="year-filter">Year</label>
+      <select id="year-filter">
+        <option value="all">All years (2010–2018)</option>
+      </select>
+    </div>
+  </header>
+
+  <!-- Info button -->
+  <button class="info-btn" id="info-btn" aria-label="How to use this visualization" tabindex="1">?</button>
+
+    <!-- Stream Graph -->
+    <div class="chart-card chart-card--stream" tabindex="3">
+      <div id="chart"></div>
+      <div class="legend-section">
+        <div class="legend-title">Genres — hover to highlight, click to learn more</div>
+        <div id="legend"></div>
+      </div>
+      <br>
+      <p class="caption">This visualization shows what proportion of movies released throughout the year belong to each genre,
+        with each colored stream representing a different genre. The height of a stream shows that genre's total share of movies released that month.
+      </p>
+      <p class="sr-only">The largest two sections overall are drama and comedy. Drama peaks in November and December, and comedy in the summer months. 
+        Thriller, action, and horror also have significant shares, fluctuating throughout the year, and the remaining 14 genres have small streams comparatively.</p>
+    </div>
+
+    <!-- Scatter Plot -->
+    <div class="chart-card chart-card--scatter" id="scatter-card" tabindex="4">
+      <div class="scatter-empty" id="scatter-empty">
+        <div class="scatter-empty-icon">◎</div>
+        <p>Click a genre stream to explore <br/> its movies' budget and revenue</p>
+      </div>
+      <div id="scatter" style="display:none"></div>
+      <br>
+      <p class="caption">This visualization compares the budget and revenue for each movie in a selected genre, with each point 
+        representing a different movie. The horizontal position shows budget, and the vertical position shows revenue. The dashed line represents the point in which a film breaks even.
+      </p>
+      <p class="sr-only" >The points follow a positive trend; generally, a higher budget movie produces more gross revenue. 
+        The points are clustered in the lower left corner (low budget and low revenue), and there are some outliers 
+        where the revenue does not match the budget, meaning the movie did worse or better than expected.</p>
+    </div>
+
+    <br>
+    <div tabindex="5">
+    <p>View the original datas in the Github repository 
+        <a href="https://github.com/ntdoris/movie-revenue-analysis/blob/main/final_dataset.csv" style = "color: #a6cee3" target="_blank">
+        “Movie Revenue Analysis”</a> by Natalya Doris (@ntdoris)</p>
+    <p>Access our cleaned dataset in an HTML table format
+      <a href="data.html" style = "color: #a6cee3" target="_blank">
+      here</a></p>
+    <p>Learn more about our process in the
+      <a href="writeup.pdf" style = "color: #a6cee3" target="_blank">
+      writeup</a></p>
+    </div>
+    
+    
+    <div id="info-overlay" class="info-overlay" hidden>
+  <div class="info-modal" role="dialog" aria-modal="true" aria-labelledby="info-title">
+    <div class="info-modal-header">
+      <h2 id="info-title">How to view this visualization</h2>
+      <button class="info-close" id="info-close" aria-label="Close">✕</button>
+    </div>
+    <div class="info-modal-body">
+      <div class="info-section">
+        <div class="info-section-title">Stream Graph</div>
+        <p>Each colored stream represents a genre. The height of a stream at any given month 
+            reflects that genre's total share of all movies released that month. A share is a 
+            proportional fraction of a movie assigned evenly across all of its listed genres. 
+            (For example, a movie with 4 genres would add .25 of a share to each genre it represents.) </p>
+      </div>
+      <div class="info-section">
+        <div class="info-section-title">Year Filter</div>
+        <p>Use the dropdown above to narrow the visualization to a specific year. Selecting a 
+            year updates both the stream graph and any open scatter plot.</p>
+      </div>
+      <div class="info-section">
+        <div class="info-section-title">Hover</div>
+        <p>Hover over any stream to highlight that genre and see a tooltip showing its total 
+            share count and the top 3 highest-profiting movies from that genre in the selected 
+            time period.</p>
+      </div>
+      <div class="info-section">
+        <div class="info-section-title">Click / Enter</div>
+        <p>Click a stream (or press Enter or Space when it's focused) to open the scatter plot panel 
+            on the right, showing every movie in that genre plotted by production budget vs. 
+            worldwide gross.</p>
+      </div>
+      <div class="info-section">
+        <div class="info-section-title">Keyboard Navigation</div>
+        <p>Tab once to enter the stream graph. Use the Up/Down or Left/Right arrow keys to move 
+            between genres. Press Enter or Space to open that genre's scatter plot. Tab again 
+            to exit the graph.</p>
+      </div>
+      <div class="info-section">
+        <div class="info-section-title">Scatter Plot</div>
+        <p>Each dot is a movie. Scroll to zoom in on crowded areas — the bottom-left cluster
+             represents films with a low budget and low revenue. Double-click to reset the zoom. Hover over a dot for the movie's
+              full financial details. Click ✕ to close the scatter plot.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</div>
+
+<!-- Tooltip (stream) -->
+<div id="tooltip"></div>
+<!-- Tooltip (scatter) -->
+<div id="scatter-tooltip"></div>
+
+<!-- D3 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
+<!-- Visualization -->
+<script src="js/main.js"></script>
+
+</body>
+</html>
